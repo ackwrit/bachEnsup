@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -188,7 +190,71 @@ class MaDeuxiemePageState extends State<MaDeuxiemePage>{
   }
 
   Widget bodyPage(){
-    return Text("${widget.monPrenom}");
+    // Champs texte pour enter une adresse mail
+    //Entrer mot de passe
+    //Bounton de connexion
+    //Bouton d'inscription
+    //Bouton pour les différents réseaux sociaux
+    //Google - facebook
+    return  Padding(
+        padding: const EdgeInsets.only(left:10,right: 10),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            TextField(
+
+            ),
+            TextField(
+
+            ),
+
+            ElevatedButton(
+                onPressed: (){
+
+                },
+                child: Text("Connexion")
+            ),
+
+            TextButton(
+                onPressed: (){
+
+                },
+                child: Text("Inscription")
+            ),
+
+
+            Container(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                  icon: const FaIcon(FontAwesomeIcons.google),
+                  onPressed: (){
+
+                  },
+                  label: Text("Google")
+
+              ),
+            ),
+
+
+
+            ElevatedButton(
+                onPressed: (){
+
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.network("https://cdn.pixabay.com/photo/2016/06/09/20/38/woman-1446557_960_720.jpg",width: 40,height: 40,),
+                    SizedBox(width: 10,),
+                    Text("Facebook")
+                  ],
+                )
+            )
+
+          ],
+        ),
+      ),
+    );
   }
 
 }
