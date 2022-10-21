@@ -50,21 +50,30 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
       ),
       body:  SingleChildScrollView(
-          child: Center(
-            child: Padding(
+          child:  Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   //Image
                   const CircleAvatar(
-                    radius: 50,
+                    radius: 70,
                     backgroundImage: NetworkImage("https://cdn.pixabay.com/photo/2021/03/04/11/37/coast-6067736_960_720.jpg"),
 
                   ),
+                  //pour donner un espacement entre les widgets
+                  const SizedBox(height: 10,),
 
                   //Text descritpion
-                  const Text("Bienvenue dans votre application de bien-être"),
+                  const Text("Bienvenue dans votre application de bien-être",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.purple,
+                      fontWeight: FontWeight.bold
+                    ),),
+                  //pour donner un espacement entre les widgets
+                  const SizedBox(height: 10,),
 
                   //Bouton
                   Container(
@@ -85,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-          ),
+
         )
 
 
