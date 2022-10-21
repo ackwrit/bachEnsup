@@ -1,3 +1,4 @@
+import 'package:bach/view/inscription.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -197,19 +198,47 @@ class MaDeuxiemePageState extends State<MaDeuxiemePage>{
     //Bouton pour les différents réseaux sociaux
     //Google - facebook
     return  Padding(
-        padding: const EdgeInsets.only(left:10,right: 10),
+        padding: const EdgeInsets.only(left:10,right: 10,top: 20),
       child: SingleChildScrollView(
         child: Column(
           children: [
             TextField(
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.amber,
+                hintText: "Entrer votre adresse mail",
+
+
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+
+                ),
+
+              ),
 
             ),
+            const SizedBox(height: 10,),
             TextField(
+              obscureText: true,
+
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.amber,
+                hintText: "Entrer votre mot de passe",
+
+
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+
+                ),
+
+              ),
 
             ),
 
             ElevatedButton(
                 onPressed: (){
+                  //Si c'est la bonne adresse et le bon mot de passe, on vas vers une nouvelle page sinon on affiche un popUp
 
                 },
                 child: Text("Connexion")
@@ -217,6 +246,11 @@ class MaDeuxiemePageState extends State<MaDeuxiemePage>{
 
             TextButton(
                 onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context){
+                        return Inscription();
+                      }
+                  ));
 
                 },
                 child: Text("Inscription")
@@ -244,9 +278,12 @@ class MaDeuxiemePageState extends State<MaDeuxiemePage>{
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.network("https://cdn.pixabay.com/photo/2016/06/09/20/38/woman-1446557_960_720.jpg",width: 40,height: 40,),
-                    SizedBox(width: 10,),
-                    Text("Facebook")
+                    Image.network("https://cdn.pixabay.com/photo/2016/06/09/20/38/woman-1446557_960_720.jpg",
+                      width: 40,
+                      height: 40,
+                    ),
+                    const SizedBox(width: 10,),
+                    const Text("Facebook")
                   ],
                 )
             )
@@ -312,3 +349,5 @@ class AnimationDelayState extends State<AnimationDelay> with SingleTickerProvide
   }
 
 }
+
+
