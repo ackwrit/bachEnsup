@@ -56,41 +56,53 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   //Image
-                  const CircleAvatar(
-                    radius: 70,
-                    backgroundImage: NetworkImage("https://cdn.pixabay.com/photo/2021/03/04/11/37/coast-6067736_960_720.jpg"),
+                  AnimationDelay(
+                      duration: 1000,
+                      child: const CircleAvatar(
+                        radius: 70,
+                        backgroundImage: NetworkImage("https://cdn.pixabay.com/photo/2021/03/04/11/37/coast-6067736_960_720.jpg"),
 
+                      ),
                   ),
+
                   //pour donner un espacement entre les widgets
                   const SizedBox(height: 10,),
 
                   //Text descritpion
-                  const Text("Bienvenue dans votre application de bien-être",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.purple,
-                      fontWeight: FontWeight.bold
-                    ),),
+                  AnimationDelay(
+                      duration: 2000,
+                      child: const Text("Bienvenue dans votre application de bien-être",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.purple,
+                            fontWeight: FontWeight.bold
+                        ),),
+                  ),
+
                   //pour donner un espacement entre les widgets
                   const SizedBox(height: 10,),
 
                   //Bouton
-                  Container(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: (){
-                          Navigator.push(context,
-                              MaterialPageRoute(
-                                  builder: (context){
-                                    return MaDeuxiemePage();
-                                  }
-                              ));
+                  AnimationDelay(
+                      duration: 3000,
+                      child: Container(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            onPressed: (){
+                              Navigator.push(context,
+                                  MaterialPageRoute(
+                                      builder: (context){
+                                        return MaDeuxiemePage();
+                                      }
+                                  ));
 
-                        },
-                        child: const Text("Bienvenue")
-                    ),
+                            },
+                            child: const Text("Bienvenue")
+                        ),
+                      )
                   )
+
                 ],
               ),
             ),
@@ -205,9 +217,18 @@ class AnimationDelayState extends State<AnimationDelay> with SingleTickerProvide
   void initState() {
     animationController = AnimationController(
         vsync: this,
-      duration: Duration(milliseconds: 800)
+      duration: const Duration(milliseconds: 1800)
     );
     final curvedAnimation = CurvedAnimation(parent: animationController, curve: Curves.decelerate);
+    animation = Tween<Offset>(
+      begin: const Offset(0, 0.6),
+      end : Offset.zero,
+    ).animate(curvedAnimation);
+    Timer(
+        Duration(milliseconds: widget.duration),(){
+          animationController.forward();
+        });
+
 
     super.initState();
   }
@@ -215,7 +236,13 @@ class AnimationDelayState extends State<AnimationDelay> with SingleTickerProvide
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Text("Mon animation");
+    return FadeTransition(
+      opacity: animationController,
+      child: SlideTransition(
+        position: animation,
+        child: widget.child,
+      ),
+    );
   }
 
 }
