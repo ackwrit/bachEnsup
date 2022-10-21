@@ -15,8 +15,18 @@ class InscriptionState extends State<Inscription>{
   DateTime birthday = DateTime.now();
 
   //méthode
-  choiceDate(){
-
+  Future <void> choiceDate(BuildContext context) async {
+      DateTime? pickerDate = await showDatePicker(
+          context: context,
+          initialDate: birthday,
+          firstDate: DateTime(1970),
+          lastDate: DateTime.now()
+      );
+      if(pickerDate!=null && pickerDate!=birthday){
+        setState(() {
+          birthday = pickerDate!;
+        });
+      }
   }
 
 
@@ -104,7 +114,7 @@ class InscriptionState extends State<Inscription>{
               ),
 
               //Ligne 3
-              SizedBox(height:10),
+              const SizedBox(height:10),
               Row(
                 children: [
 
@@ -182,13 +192,24 @@ class InscriptionState extends State<Inscription>{
                   Text("Date de naissance : ${birthday.day}/${birthday.month}/${birthday.year}"),
                   IconButton(
                       onPressed: (){
-                        choiceDate();
+                        choiceDate(context);
 
                       },
                       icon: const Icon(Icons.access_time_filled)
-                  )
+                  ),
+
+
+
                 ],
               ),
+              //Ligne 5
+              SizedBox(height:10),
+              ElevatedButton(
+                  onPressed: (){
+
+                  },
+                  child: Text("Inscription")
+              )
 
 
 
