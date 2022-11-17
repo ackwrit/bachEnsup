@@ -9,11 +9,20 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  //variable
+  int indexPage = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body : const Text("Je suis connecté"),
+      body : bodyPage(),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: indexPage,
+        onTap: (value){
+          setState(() {
+            indexPage = value;
+          });
+        },
+
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.ac_unit_outlined),
@@ -31,6 +40,13 @@ class _DashboardState extends State<Dashboard> {
         ],
       ),
 
+    );
+  }
+
+
+  Widget bodyPage(){
+    return Center(
+        child: Text("Coucou")
     );
   }
 }
