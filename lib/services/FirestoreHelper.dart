@@ -24,7 +24,7 @@ class FirestoreHelper{
       "PRENOM":prenom,
       "NOM":nom,
       "PSEUDO":pseudo,
-      "SEXE":sexe,
+      //"SEXE":sexe,
       "BIRTHDAY":birthday,
       "MAIL":mail
     };
@@ -34,8 +34,10 @@ class FirestoreHelper{
   }
 
 
-  Connexion({required String mail, required String password}) async{
+  Future<MyUtilisateur>Connexion({required String mail, required String password}) async{
     UserCredential resultat = await auth.signInWithEmailAndPassword(email: mail, password: password);
+    String uid = resultat.user!.uid;
+    return getUser(uid);
   }
 
   Future<MyUtilisateur> getUser(String uid) async{

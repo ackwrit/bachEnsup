@@ -1,3 +1,6 @@
+import 'package:bach/services/FirestoreHelper.dart';
+import 'package:bach/services/constant.dart';
+import 'package:bach/view/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class Inscription extends StatefulWidget{
@@ -13,6 +16,12 @@ class InscriptionState extends State<Inscription>{
   //Varibale
   bool isMan = true;
   DateTime birthday = DateTime.now();
+  late String mail;
+  late String nom;
+  late String prenom;
+  late String pseudo;
+  late String password;
+  Genre sexe = Genre.homme;
 
   //méthode
   Future <void> choiceDate(BuildContext context) async {
@@ -58,6 +67,13 @@ class InscriptionState extends State<Inscription>{
                      onChanged: (value){
                        setState(() {
                          isMan = value;
+                         if(isMan == true){
+                           sexe = Genre.homme;
+                         }
+                         else
+                           {
+                             sexe = Genre.femme;
+                           }
                        });
                      }
                  ),
@@ -84,11 +100,19 @@ class InscriptionState extends State<Inscription>{
 
                         ),
 
+
                       ),
+
+                      onChanged: (value){
+                        setState(() {
+                          mail = value;
+                        });
+
+                      },
 
                     ),
                   ),
-                  SizedBox(width:10),
+                  const SizedBox(width:10),
                   Container(
                     width: MediaQuery.of(context).size.width/2.3,
                     child: TextField(
@@ -106,6 +130,11 @@ class InscriptionState extends State<Inscription>{
                         ),
 
                       ),
+                      onChanged: (value){
+                        setState(() {
+                          password = value;
+                        });
+                      },
 
                     ),
                   ),
@@ -135,10 +164,15 @@ class InscriptionState extends State<Inscription>{
                         ),
 
                       ),
+                      onChanged: (value){
+                        setState(() {
+                          prenom = value;
+                        });
+                      },
 
                     ),
                   ),
-                  SizedBox(width:10),
+                  const SizedBox(width:10),
                   Container(
                     width: MediaQuery.of(context).size.width/2.3,
                     child: TextField(
@@ -157,6 +191,12 @@ class InscriptionState extends State<Inscription>{
 
                       ),
 
+                      onChanged: (value){
+                        setState(() {
+                          nom = value;
+                        });
+                      },
+
                     ),
                   ),
 
@@ -164,7 +204,7 @@ class InscriptionState extends State<Inscription>{
               ),
 
               //Ligne 4
-              SizedBox(height:10),
+              const SizedBox(height:10),
               Container(
                 width: double.infinity,
                 child: TextField(
@@ -182,10 +222,15 @@ class InscriptionState extends State<Inscription>{
                     ),
 
                   ),
+                  onChanged: (value){
+                    setState(() {
+                      pseudo = value;
+                    });
+                  },
 
                 ),
               ),
-              SizedBox(height:10),
+              const SizedBox(height:10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -203,12 +248,23 @@ class InscriptionState extends State<Inscription>{
                 ],
               ),
               //Ligne 5
-              SizedBox(height:10),
+              const SizedBox(height:10),
               ElevatedButton(
                   onPressed: (){
+                    FirestoreHelper().Inscription(mail: mail, nom: nom, prenom: prenom, password: password, sexe: sexe, birthday: birthday, pseudo: pseudo).then((value){
+                      print("J'ai réussi l'inscription");
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context){
+                            return Dashboard();
+                          }
+                      ));
+
+                    }).catchError((onError){
+                      print("j'ai pas réussi");
+                    });
 
                   },
-                  child: Text("Inscription")
+                  child: const Text("Inscription")
               )
 
 

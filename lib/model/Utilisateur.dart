@@ -15,7 +15,7 @@ class MyUtilisateur {
   //pseudo
   late String pseudo;
   //sexe
-  late Genre sexe;
+  //late Genre sexe;
   //Avatar
   String? avatar;
   //description bio
@@ -30,7 +30,7 @@ class MyUtilisateur {
     prenom="";
     birthday= DateTime.now();
     avatar="";
-    sexe = Genre.femme;
+    //sexe = Genre.femme;
     bio = "";
   }
 
