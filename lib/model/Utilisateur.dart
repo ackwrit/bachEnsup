@@ -1,4 +1,5 @@
 import 'package:bach/services/constant.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyUtilisateur {
 
@@ -19,6 +20,53 @@ class MyUtilisateur {
   String? avatar;
   //description bio
   String? bio;
+
+
+
+  MyUtilisateur.empty(){
+    id ="";
+    mail="";
+    nom="";
+    prenom="";
+    birthday= DateTime.now();
+    avatar="";
+    sexe = Genre.femme;
+    bio = "";
+  }
+
+
+  MyUtilisateur(DocumentSnapshot snapshot){
+  id = snapshot.id;
+  Map<String,dynamic> map = snapshot.data() as Map<String,dynamic>;
+  mail = map["MAIL"];
+  nom = map["NOM"];
+  prenom = map["PRENOM"];
+  Timestamp timestamp = map["BIRTHDAY"];
+  birthday = timestamp.toDate();
+  String? optionnelAvatar;
+  String? optionnelBio;
+  optionnelAvatar = map["AVATAR"];
+  optionnelBio = map["BIO"];
+  if(optionnelBio == null){
+    bio = "";
+  }
+  else
+    {
+      bio = optionnelBio;
+    }
+
+  if(optionnelAvatar == null){
+    avatar = imageDefault;
+  }
+  else
+    {
+      avatar = optionnelAvatar;
+    }
+
+
+
+
+  }
 
 
 }
