@@ -1,3 +1,4 @@
+import 'package:bach/view/MyDrawer.dart';
 import 'package:flutter/material.dart';
 
 
@@ -11,15 +12,24 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   //variable
   int indexPage = 0;
+  PageController pageController = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Container(
+        color: Colors.white,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width/1.5,
+        child: MyDrawer(),
+      ),
+      appBar: AppBar(),
       body : bodyPage(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: indexPage,
         onTap: (value){
           setState(() {
             indexPage = value;
+            pageController.jumpToPage(value);
           });
         },
 
@@ -45,8 +55,25 @@ class _DashboardState extends State<Dashboard> {
 
 
   Widget bodyPage(){
-    return Center(
-        child: Text("Coucou")
+    return PageView(
+      onPageChanged: (value){
+        setState(() {
+          indexPage = value;
+        });
+      },
+      controller: pageController,
+      children: const [
+        Center(
+          child: Text("premiere page"),
+        ),
+        Center(
+          child: Text("deuxième page"),
+        ),
+        Center(
+          child: Text("troisème page"),
+        ),
+      ],
+
     );
   }
 }

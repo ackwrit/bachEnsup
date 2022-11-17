@@ -253,6 +253,7 @@ class InscriptionState extends State<Inscription>{
                   onPressed: (){
                     FirestoreHelper().Inscription(mail: mail, nom: nom, prenom: prenom, password: password, sexe: sexe, birthday: birthday, pseudo: pseudo).then((value){
                       print("J'ai réussi l'inscription");
+                      myUtilisateur = value;
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context){
                             return Dashboard();

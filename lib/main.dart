@@ -1,3 +1,6 @@
+import 'package:bach/services/FirestoreHelper.dart';
+import 'package:bach/services/constant.dart';
+import 'package:bach/view/dashboard.dart';
 import 'package:bach/view/inscription.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -184,6 +187,9 @@ class MaDeuxiemePage extends StatefulWidget{
 }
 
 class MaDeuxiemePageState extends State<MaDeuxiemePage>{
+  //Variable
+  String mail="";
+  String password="";
   @override
   Widget build(BuildContext context) {
 
@@ -220,6 +226,11 @@ class MaDeuxiemePageState extends State<MaDeuxiemePage>{
                 ),
 
               ),
+              onChanged: (value){
+                setState(() {
+                  mail = value;
+                });
+              },
 
             ),
             const SizedBox(height: 10,),
@@ -238,12 +249,23 @@ class MaDeuxiemePageState extends State<MaDeuxiemePage>{
                 ),
 
               ),
+              onChanged: (value){
+                setState(() {
+                  password = value;
+                });
+              },
 
             ),
 
             ElevatedButton(
                 onPressed: (){
                   //Si c'est la bonne adresse et le bon mot de passe, on vas vers une nouvelle page sinon on affiche un popUp
+                  FirestoreHelper().Connexion(mail: mail, password: password).then((value) {
+                    myUtilisateur = value;
+                     Navigator.push(context, MaterialPageRoute(builder: (context)=>Dashboard()));
+                  }).catchError((error){
+                    //Afficher le poopErreur
+                  });
 
                 },
                 child: Text("Connexion")
