@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:bach/services/FirestoreHelper.dart';
 import 'package:bach/services/constant.dart';
 import 'package:bach/view/dashboard.dart';
 import 'package:bach/view/inscription.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'firebase_options.dart';
@@ -29,6 +32,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -264,7 +268,8 @@ class MaDeuxiemePageState extends State<MaDeuxiemePage>{
                     myUtilisateur = value;
                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Dashboard()));
                   }).catchError((error){
-                    //Afficher le poopErreur
+                    //Afficher le popUpErreur
+                    popError();
                   });
 
                 },
@@ -321,10 +326,65 @@ class MaDeuxiemePageState extends State<MaDeuxiemePage>{
     );
   }
 
+
+  popError(){
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (context){
+          if(Platform.isAndroid){
+            return AlertDialog(
+              title: const Text("Identifiant et/ou password erronés"),
+              content: const Text("Merci de vérifier vos identifiants et mot de passe"),
+              actions: [
+                TextButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    child: const Text("OK")
+                )
+              ],
+
+            );
+          }
+          else
+            {
+              return CupertinoAlertDialog(
+                title: const Text("Identifiant et/ou password erronés"),
+                content: const Text("Merci de vérifier vos identifiants et mot de passe"),
+                actions: [
+                  TextButton(
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                      child: const Text("OK")
+                  )
+                ],
+              );
+            }
+
+        }
+    );
+  }
+
 }
 
 
 //Petite animation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class AnimationDelay extends StatefulWidget{
