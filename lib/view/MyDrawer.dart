@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:bach/services/FirestoreHelper.dart';
 import 'package:bach/services/constant.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -79,8 +80,20 @@ class _MyDrawerState extends State<MyDrawer> {
                     child: const Text("Annulation")
                 ),
                 TextButton(
-                    onPressed: (){
+                    onPressed: () async{
                       //Stocker notre image
+                      urlImage = await FirestoreHelper().storagePicture(nameImage!, bytesImage!);
+                      setState(() {
+                        //mise à jour de la constante myUtilisateur
+                        myUtilisateur.avatar=urlImage;
+                      });
+                      //Mise à jour des infos dans la BDD
+                      Map<String,dynamic> map = {
+                        "AVATAR":urlImage
+                      };
+
+                      FirestoreHelper().updateUser(myUtilisateur.id, map);
+                      Navigator.pop(context);
                     },
                     child: const Text("Validation")
                 )
@@ -92,6 +105,38 @@ class _MyDrawerState extends State<MyDrawer> {
           }
           else
           {
+            return AlertDialog(
+              title: const Text("Voulez-vous enregistrer cette image ?"),
+              content: Image.memory(bytesImage!),
+              actions: [
+                TextButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Annulation")
+                ),
+                TextButton(
+                    onPressed: () async{
+                      //Stocker notre image
+                      urlImage = await FirestoreHelper().storagePicture(nameImage!, bytesImage!);
+                      setState(() {
+                        //mise à jour de la constante myUtilisateur
+                        myUtilisateur.avatar=urlImage;
+                      });
+                      //Mise à jour des infos dans la BDD
+                      Map<String,dynamic> map = {
+                        "AVATAR":urlImage
+                      };
+
+                      FirestoreHelper().updateUser(myUtilisateur.id, map);
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Validation")
+                )
+
+              ],
+
+            );
 
           }
         }
