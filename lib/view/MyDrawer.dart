@@ -1,8 +1,9 @@
 import 'dart:typed_data';
-
 import 'package:bach/services/constant.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 class MyDrawer extends StatefulWidget {
   const MyDrawer({Key? key}) : super(key: key);
 
@@ -15,6 +16,9 @@ class _MyDrawerState extends State<MyDrawer> {
   String? nameImage;
   String? urlImage;
   Uint8List? bytesImage;
+
+
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,11 +44,59 @@ class _MyDrawerState extends State<MyDrawer> {
   }
 
 
+
+
   pickerImage() async{
     FilePickerResult? resultat = await FilePicker.platform.pickFiles(
       withData: true,
       type: FileType.image
     );
+    if(resultat != null){
+      nameImage = resultat.files.first.name;
+      bytesImage = resultat.files.first.bytes;
+      //Lancer une boite dialogue
+      MyDialogPhotos();
+    }
+
+
 
   }
+
+  MyDialogPhotos(){
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context){
+          if(Platform.isIOS){
+            return CupertinoAlertDialog(
+              title: const Text("Voulez-vous enregistrer cette image ?"),
+              content: Image.memory(bytesImage!),
+              actions: [
+                TextButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Annulation")
+                ),
+                TextButton(
+                    onPressed: (){
+                      //Stocker notre image
+                    },
+                    child: const Text("Validation")
+                )
+
+              ],
+
+            );
+
+          }
+          else
+          {
+
+          }
+        }
+    );
+  }
+
+
 }

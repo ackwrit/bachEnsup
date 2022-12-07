@@ -50,6 +50,10 @@ class FirestoreHelper{
     cloudUsers.doc(uid).set(map);
   }
 
+  updateUser(String uid,Map<String,dynamic> map){
+    cloudUsers.doc(uid).update(map);
+  }
+
 
 
 
