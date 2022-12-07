@@ -28,11 +28,24 @@ class MyUtilisateur {
     mail="";
     nom="";
     prenom="";
+    pseudo ="";
     birthday= DateTime.now();
     avatar="";
     //sexe = Genre.femme;
     bio = "";
   }
+
+  MyUtilisateur.affection(
+      {
+        required this.id,
+        required this.prenom,
+        required this.nom,
+        required this.birthday,
+        required this.pseudo,
+        required this.mail,
+        String? this.avatar,
+        String? this.bio,
+      });
 
 
   MyUtilisateur(DocumentSnapshot snapshot){
@@ -62,10 +75,30 @@ class MyUtilisateur {
     {
       avatar = optionnelAvatar;
     }
+  String optionnelPseudo= map["PSEUDO"];
 
+  if(optionnelPseudo == null){
+    pseudo = "";
+  }
+  else
+  {
+    pseudo = optionnelPseudo;
+  }
 
+  }
 
-
+  Map <String,dynamic>toMap(){
+    Map<String,dynamic> map = {
+     "ID":id,
+    "MAIL":mail,
+    "NOM":nom,
+    "PRENOM":prenom,
+    "BIRTHDAY":birthday,
+    "AVATAR":avatar,
+    "BIO":bio,
+      "PSEUDO":pseudo
+    };
+    return map;
   }
 
 

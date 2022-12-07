@@ -24,7 +24,37 @@ class _DashboardState extends State<Dashboard> {
         width: MediaQuery.of(context).size.width/1.5,
         child: MyDrawer(),
       ),
-      appBar: AppBar(),
+
+      appBar: AppBar(
+
+        actions: [
+          IconButton(
+              icon: const FaIcon(FontAwesomeIcons.squarePlus),
+            iconSize: 30,
+            onPressed: (){
+               print("Ajouter des posts") ;
+            },
+          ),
+          const SizedBox(width: 10),
+          IconButton(
+              icon: const FaIcon(FontAwesomeIcons.heart),
+            iconSize: 30,
+            onPressed: (){
+              print("Ajouter des favoris") ;
+            },
+          ),
+          const SizedBox(width: 10),
+          IconButton(
+              icon: const FaIcon(FontAwesomeIcons.paperPlane),
+            iconSize: 30,
+            onPressed: (){
+                print("J'envoi un message");
+            },
+          ),
+          const SizedBox(width: 10),
+        ],
+      ),
+
       body : bodyPage(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: indexPage,

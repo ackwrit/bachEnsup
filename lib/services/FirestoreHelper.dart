@@ -4,6 +4,7 @@ import 'package:bach/model/Utilisateur.dart';
 import 'package:bach/services/constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class FirestoreHelper{
@@ -11,6 +12,7 @@ class FirestoreHelper{
   final auth = FirebaseAuth.instance;
   final storage = FirebaseStorage.instance;
   final cloudUsers = FirebaseFirestore.instance.collection("UTILISATEURS");
+  final cloudPosts = FirebaseFirestore.instance.collection("POSTS");
 
 
 
@@ -63,6 +65,28 @@ class FirestoreHelper{
     //récupérer notre url de l'image
     String urlImage = await snapshot.ref.getDownloadURL();
     return urlImage;
+  }
+
+
+  addPost(String id, Map<String,dynamic> map){
+    cloudPosts.doc(id).set(map);
+  }
+
+  deletePost(String id){
+    cloudPosts.doc(id).delete();
+  }
+
+  updatePost(String id,String texte){
+    Map<String,dynamic> map = {
+      "TEXTE":texte
+    };
+    cloudPosts.doc(id).update(map);
+  }
+
+  deleteUser(String uid){
+    cloudUsers.doc(uid).delete();
+    auth.currentUser!.delete();
+
   }
 
 
