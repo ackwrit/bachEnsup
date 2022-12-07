@@ -1,5 +1,7 @@
+import 'package:bach/controller/publicationController.dart';
 import 'package:bach/view/MyDrawer.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class Dashboard extends StatefulWidget {
@@ -35,13 +37,14 @@ class _DashboardState extends State<Dashboard> {
 
         items: const [
           BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.house),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.ac_unit_outlined),
             label: "Personnes",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.roundabout_right_sharp),
-            label: "Coucou",
-          ),
+
           BottomNavigationBarItem(
             icon: Icon(Icons.access_alarm_rounded),
             label: "Body",
@@ -63,9 +66,7 @@ class _DashboardState extends State<Dashboard> {
       },
       controller: pageController,
       children: const [
-        Center(
-          child: Text("premiere page"),
-        ),
+        PublicationController(),
         Center(
           child: Text("deuxième page"),
         ),
