@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:bach/services/constant.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 class MyDrawer extends StatefulWidget {
   const MyDrawer({Key? key}) : super(key: key);
@@ -39,7 +40,11 @@ class _MyDrawerState extends State<MyDrawer> {
   }
 
 
-  pickerImage(){
+  pickerImage() async{
+    FilePickerResult? resultat = await FilePicker.platform.pickFiles(
+      withData: true,
+      type: FileType.image
+    );
 
   }
 }
