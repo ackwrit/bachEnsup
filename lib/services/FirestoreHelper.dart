@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:bach/model/Utilisateur.dart';
 import 'package:bach/services/constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -52,6 +54,15 @@ class FirestoreHelper{
 
   updateUser(String uid,Map<String,dynamic> map){
     cloudUsers.doc(uid).update(map);
+  }
+
+  //Stocker l'image
+  Future<String>storagePicture(String nameImage, Uint8List dataImage) async{
+    //Stocker l'image dans la bdd
+    TaskSnapshot snapshot = await storage.ref("profil/$nameImage").putData(dataImage);
+    //récupérer notre url de l'image
+    String urlImage = await snapshot.ref.getDownloadURL();
+    return urlImage;
   }
 
 
