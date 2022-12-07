@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bach/services/FirestoreHelper.dart';
 import 'package:bach/services/constant.dart';
+import 'package:bach/services/permissionHandler.dart';
 import 'package:bach/view/dashboard.dart';
 import 'package:bach/view/inscription.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +17,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  PermissionHandler().start();
   runApp(const MyApp());
 }
 

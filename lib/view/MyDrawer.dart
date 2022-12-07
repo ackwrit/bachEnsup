@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:bach/services/constant.dart';
 import 'package:flutter/material.dart';
 class MyDrawer extends StatefulWidget {
@@ -8,15 +10,24 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
+  //variables
+  String? nameImage;
+  String? urlImage;
+  Uint8List? bytesImage;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         const SizedBox(height: 60),
 
-        CircleAvatar(
-          radius: 60,
-          backgroundImage: NetworkImage(myUtilisateur.avatar!),
+        InkWell(
+          child: CircleAvatar(
+            radius: 60,
+            backgroundImage: NetworkImage(myUtilisateur.avatar!),
+          ),
+          onTap: (){
+            pickerImage();
+          },
         ),
         const SizedBox(height: 20),
         Text(myUtilisateur.mail),
@@ -25,5 +36,10 @@ class _MyDrawerState extends State<MyDrawer> {
         Text(myUtilisateur.prenom)
       ],
     );
+  }
+
+
+  pickerImage(){
+
   }
 }
