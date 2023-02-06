@@ -25,11 +25,12 @@ class Post{
     Timestamp timestamp = map["DATE_POST"];
     datePost = timestamp.toDate();
     Map<String,dynamic> mapEmmeteur = map["EMETTEUR"];
+    Timestamp timpe = mapEmmeteur["BIRTHDAY"];
     emetteur = MyUtilisateur.affection(
         id: mapEmmeteur["ID"],
         prenom: mapEmmeteur["PRENOM"],
         nom: mapEmmeteur["NOM"],
-        birthday: mapEmmeteur["BIRTHDAY"],
+        birthday: timpe.toDate(),
         pseudo: mapEmmeteur["PSEUDO"],
         mail: mapEmmeteur["MAIL"],
       avatar: mapEmmeteur["AVATAR"],

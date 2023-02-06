@@ -14,6 +14,8 @@ class PublicationController extends StatefulWidget {
 }
 
 class _PublicationControllerState extends State<PublicationController> {
+  //Variable
+  ScrollController _controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -66,7 +68,7 @@ class _PublicationControllerState extends State<PublicationController> {
           ),
           const Divider(height: 2.5,color: Colors.black,),
           StreamBuilder<QuerySnapshot>(
-            stream: FirestoreHelper().cloudPosts.snapshots(),
+            stream: FirestoreHelper().cloudPosts.orderBy("DATE_POST",descending: true).snapshots(),
               builder: (context,snapshot){
                 if(!snapshot.hasData){
                   return const CircularProgressIndicator();
@@ -75,6 +77,7 @@ class _PublicationControllerState extends State<PublicationController> {
                   {
                     List documents = snapshot.data!.docs;
                     return ListView.builder(
+                      controller: _controller,
                       shrinkWrap: true,
                         itemCount: documents.length,
                         itemBuilder: (context,index){

@@ -143,7 +143,9 @@ class _DashboardState extends State<Dashboard> {
 
 
                     String id = randomAlphaNumeric(20);
+                    print("coucou");
                     FirestoreHelper().addPost(id, map);
+                    print("passage");
                     Navigator.pop(context);
 
                     },
