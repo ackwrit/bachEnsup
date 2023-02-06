@@ -59,9 +59,17 @@ class FirestoreHelper{
   }
 
   //Stocker l'image
-  Future<String>storagePicture(String nameImage, Uint8List dataImage) async{
+  Future<String>storagePicture({required String nameImage, required Uint8List dataImage, bool? isPhoto}) async{
+    late TaskSnapshot snapshot;
     //Stocker l'image dans la bdd
-    TaskSnapshot snapshot = await storage.ref("profil/$nameImage").putData(dataImage);
+    if(isPhoto == null || isPhoto == true){
+      snapshot = await storage.ref("profil/$nameImage").putData(dataImage);
+    }
+    else
+      {
+        snapshot = await storage.ref("videos/$nameImage").putData(dataImage);
+      }
+
     //récupérer notre url de l'image
     String urlImage = await snapshot.ref.getDownloadURL();
     return urlImage;

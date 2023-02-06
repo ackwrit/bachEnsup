@@ -82,7 +82,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 TextButton(
                     onPressed: () async{
                       //Stocker notre image
-                      urlImage = await FirestoreHelper().storagePicture(nameImage!, bytesImage!);
+                      urlImage = await FirestoreHelper().storagePicture(nameImage: nameImage!, dataImage: bytesImage!);
                       setState(() {
                         //mise à jour de la constante myUtilisateur
                         myUtilisateur.avatar=urlImage;
@@ -118,7 +118,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 TextButton(
                     onPressed: () async{
                       //Stocker notre image
-                      urlImage = await FirestoreHelper().storagePicture(nameImage!, bytesImage!);
+                      urlImage = await FirestoreHelper().storagePicture(nameImage: nameImage!, dataImage: bytesImage!);
                       setState(() {
                         //mise à jour de la constante myUtilisateur
                         myUtilisateur.avatar=urlImage;
